@@ -11,20 +11,30 @@ return new class extends Migration
      */
     public function up()
     {
+        Schema::create('threads', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->date('created_date')->default(DB::raw('CURRENT_DATE'));
+            $table->timestamps();
+        });
+    
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('user_id')->default('名無し');
             $table->text('message');
+            $table->date('posted_date')->default(DB::raw('CURRENT_DATE'));
             $table->timestamps();
         });
     }
-
+    
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('posts');
+        Schema::table('posts', function (Blueprint $table) {
+            //
+        });
     }
 };
