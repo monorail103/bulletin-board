@@ -6,8 +6,23 @@
     <title>掲示板</title>
 </head>
 <body>
+
+    <div class="header">
+        @if(Auth::check())
+            <p>ようこそ、{{ Auth::user()->name }}さん</p>
+            <a href="{{ route('logout') }}"
+               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                ログアウト
+            </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
+        @else
+            <a href="{{ route('login') }}">ログイン</a>
+            <a href="{{ route('register') }}">登録</a>
+        @endif
+    </div>
     <h1>スレッド一覧</h1>
-    
     <h2>スレッド</h2>
     @if ($threads->isEmpty())
         <h2>スレッドがありません</h2>
@@ -26,6 +41,10 @@
         <div>
             <label for="title">スレッドタイトル</label>
             <input type="text" id="title" name="title" required>
+            <label for="title">名前</label>
+            <input type="text" id="name" name="name" value="nanashi">
+            <label for="title">内容</label>
+            <input type="text" id="message" name="message" required>
         </div>
         <button type="submit">作成</button>
     </form>

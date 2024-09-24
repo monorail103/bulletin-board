@@ -21,6 +21,19 @@ h2 {
     color: rgb(0, 67, 126);
 }
 
+.header {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.header a {
+    color: #fff;
+    text-decoration: none;
+}
+
+
 form {
     max-width: 600px;
     margin: 20px auto;
@@ -86,6 +99,14 @@ a {
     color: #007BFF;
     display: block;
     margin: 20px 0;
+}
+
+textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Ensure padding is included in width */
 }
 
 a:hover {

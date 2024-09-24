@@ -18,10 +18,10 @@
             <h2>投稿がありません</h2>
         </div>
     @else
-        @foreach ($posts as $post)
+        @foreach ($posts as $index => $post)
             <div class="post">
-                <span id="name">{{ $post->name }} {{ $post->posted_date }} ID:{{ $post->user_id }}</span>
-                <p>{{ $post->message }}</p>
+                <span id="name">{{$index + 1}} {{ $post->name }} {{ $post->posted_date }} ID:{{ $post->user_id }}</span>
+                <p>{!! $post->message !!}</p>
             </div>
         @endforeach
     @endif
@@ -31,11 +31,11 @@
         <input type="hidden" name="thread_id" value="{{ $thread->id }}">
         <div>
             <label for="name">名前</label>
-            <input type="text" id="name" name="name" value="nanashi">
+            <input type="text" id="name" name="name" value="{{ old('name', 'nanashi') }}">
         </div>
         <div>
             <label for="message">内容</label>
-            <input type="text" id="message" name="message" required>
+            <textarea  id="message" name="message" required></textarea>
         </div>
         <button type="submit">送信</button>
     </form>

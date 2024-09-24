@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Thread;
+use App\Models\Post;
 
 class ThreadController extends Controller
 {
@@ -21,13 +23,28 @@ class ThreadController extends Controller
     {   
         // バリデーション
         $request->validate([
-            'title' => 'required',
+            'title' => 'required|max:255',
+            'name' => 'nullable|string|max:255',
+            'message' => 'required|string|max:1000',
         ]);
     
         $thread = Thread::create([
             'title' => $request->title,
             'created_date' => now(),
         ]);
+
+        $name = $request->input('name', 'nanashi');
+        if (empty($name)) {
+            $name = 'nanashi';
+        }
+
+        Post::create([
+            'name' => $name,
+            'user_id' => $this->generateUserId(),
+            'message' => $request->message,
+            'posted_date' => now(),
+            'thread_id' => $thread->id,
+        ]);       
         
         // 立てたスレのページにリダイレクト
         return redirect()->route('threads.show', ['thread' => $thread->id]);
@@ -36,7 +53,12 @@ class ThreadController extends Controller
     // スレを表示
     public function show(Thread $thread)
     {
-        $posts = $thread->posts;
+        // 書き込みに番号をつける
+        $posts = $thread->posts()->orderBy('created_at')->get();
+        // アンカーをリンクに変換
+        foreach ($posts as $index => $post) {
+            $post -> message = $this->convertLinks($post->message);
+        }
         return view('threads.show', compact('thread', 'posts'));
     }
 
@@ -50,4 +72,29 @@ class ThreadController extends Controller
         }
     }
 
+    private function convertLinks($message)
+    {
+        return preg_replace('/>>(\d+)/', '<a href="#post-$1">>>$1</a>', e($message));
+    }
+
+    // 日替わりユーザーIDを生成
+    private function generateUserId() {
+        $date = date('Ymd');
+
+        if (Auth::check()) {
+            $userID = Auth::id();
+            $hash = md5($userID. $date);
+            return substr($hash, 0, 10);
+        }
+        // IPアドレスを取得
+        $ip = request()->ip();
+        
+        // IPアドレスと日付を組み合わせてハッシュ化
+        $hash = md5($ip . $date);
+        
+        // ハッシュの最初の5文字を取得
+        $id = substr($hash, 0, 10);
+        
+        return $id;
+    }
 }
