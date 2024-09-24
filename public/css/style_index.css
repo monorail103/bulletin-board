@@ -25,12 +25,15 @@ h2 {
     background-color: #007BFF;
     color: #fff;
     padding: 10px 0;
-    text-align: left;
+    text-align: center;
 }
 
 .header a {
     color: #fff;
+<<<<<<< HEAD
     margin-left: 10%;
+=======
+>>>>>>> 9bddc6b87e8ad0218fa8a50fefe8623dde5c9932
     text-decoration: none;
 }
 
