@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use App\Models\Post;
 
@@ -36,11 +37,15 @@ class PostController extends Controller
 
     // 日替わりユーザーIDを生成
     private function generateUserId() {
+        $date = date('Ymd');
+
+        if (Auth::check()) {
+            $userID = Auth::id();
+            $hash = md5($userID. $date);
+            return substr($hash, 0, 10);
+        }
         // IPアドレスを取得
         $ip = request()->ip();
-
-        // 現在の日付を取得
-        $date = date('Ymd');
         
         // IPアドレスと日付を組み合わせてハッシュ化
         $hash = md5($ip . $date);
