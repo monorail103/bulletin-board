@@ -25,5 +25,15 @@
         @csrf
         <button type="submit">OTPを再設定</button>
     </form>
+
+    <form action="{{ url('admin.updateSettings') }}" method="POST">
+        @csrf
+        <div>
+            <label for="admin_email">管理者メールアドレス</label>
+            <input type="email" id="admin_email" name="admin_email" value="{{ old('admin_email', $adminEmail) }}" required>
+        </div>
+        <button type="submit">更新</button>
+    </form>
+    
 </body>
 </html>

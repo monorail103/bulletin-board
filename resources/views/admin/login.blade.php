@@ -8,6 +8,9 @@
 <body>
     <h1>管理者ログイン</h1>
 
+    @if (session('status'))
+        <p>{{ session('status') }}</p>
+    @endif
     @if ($errors->any())
         <div>
             <ul>
@@ -24,10 +27,12 @@
             <label for="password">パスワード</label>
             <input type="password" id="password" name="password" required>
         </div>
+        <!--
         <div>
             <label for="otp">ワンタイムキー</label>
             <input type="text" id="otp" name="otp" required>
         </div>
+        -->
         <button type="submit">ログイン</button>
     </form>
 </body>
