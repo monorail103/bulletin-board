@@ -4,8 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ThreadController;
+use App\Http\Controllers\AdminController;
 use App\Models\Post;
 use App\Models\Thread;
+use App\Models\Setting;
 
 Route::get('/', function () {
     return view('welcome');
@@ -20,3 +22,14 @@ Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// 管理者設定ルート
+Route::get('/admin/settings', [AdminController::class, 'showSettings'])->name('admin.settings');
+Route::post('/admin/settings', [AdminController::class, 'updateSettings'])->name('admin.updateSettings');
+Route::get('/admin/otp', [AdminController::class, 'showOtpSetupForm'])->name('admin.otp');
+Route::post('/admin/otp', [AdminController::class, 'verifyOtp'])->name('admin.verifyOtp');
+Route::post('/admin/otp/reset', [AdminController::class, 'resetOtp'])->name('admin.resetOtp');
+
+// 管理者ログインルート
+Route::get('/admin/login', [AdminController::class, 'showLoginForm'])->name('admin.showLoginForm');
+Route::post('/admin/login', [AdminController::class, 'login'])->name('admin.login');
