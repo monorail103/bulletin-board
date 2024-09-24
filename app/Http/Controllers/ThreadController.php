@@ -23,20 +23,17 @@ class ThreadController extends Controller
     {   
         // バリデーション
         $request->validate([
-            'title' => 'required|max:255',
+            'title' => 'required|string|max:255',
+            'message' => 'required|string',
             'name' => 'nullable|string|max:255',
-            'message' => 'required|string|max:1000',
-        ]);
-    
-        $thread = Thread::create([
-            'title' => $request->title,
-            'created_date' => now(),
         ]);
 
-        $name = $request->input('name', 'nanashi');
-        if (empty($name)) {
-            $name = 'nanashi';
-        }
+        $thread = new Thread();
+        $thread->title = $request->input('title');
+        $thread->user_id = Auth::id();
+        $thread->save();
+
+        $name = $request->input('name', "nanashi");
 
         Post::create([
             'name' => $name,

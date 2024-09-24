@@ -22,15 +22,30 @@ class PostController extends Controller
         // バリデーション
         $request->validate([
             'message' => 'required',
+            'name' => 'required|string|max:255',
+            'thread_id' => 'required|exists:threads,id',
         ]);
 
-        Post::create([
-            'name' => $request->name,
-            'user_id' => $this->generateUserId(),
-            'message' => $request->message,
-            'posted_date' => now(),
-            'thread_id' => $request->thread_id,
-        ]);
+        // 名前が空であればデフォルト値を設定
+        $name = $request->input('name', 'nanashi');
+        if (empty($name)) {
+            $name = 'nanashi';
+        }
+
+        echo $name;
+
+        try {
+            Post::create([
+                'name' => $name,
+                'user_id' => $this->generateUserId(),
+                'message' => $request->message,
+                'posted_date' => now(),
+                'thread_id' => $request->thread_id,
+            ]);
+        } catch (\Exception $e) {
+            // エラーを処理する（例：ログに記録する、エラーメッセージを返すなど）
+            return redirect()->back()->withErrors(['error' => '投稿の作成に失敗しました。']);
+        }
 
         return redirect()->route('threads.show', ['thread' => $request->thread_id]);
     }

@@ -20,7 +20,9 @@
     @else
         @foreach ($posts as $index => $post)
             <div class="post">
-                <span id="name">{{$index + 1}} {{ $post->name }} {{ $post->posted_date }} ID:{{ $post->user_id }}</span>
+                <span id="name" class="{{ Auth::check() && Auth::id() == $post->user_id ? 'logged-in-user' : '' }}">
+                    {{$index + 1}} {{ $post->name }} {{ $post->posted_date }} ID:{{ $post->user_id }}
+                </span>
                 <p>{!! $post->message !!}</p>
             </div>
         @endforeach
@@ -31,11 +33,11 @@
         <input type="hidden" name="thread_id" value="{{ $thread->id }}">
         <div>
             <label for="name">名前</label>
-            <input type="text" id="name" name="name" value="{{ old('name', 'nanashi') }}">
+            <input type="text" id="name" name="name" value="{{ Auth::check() ? Auth::user()->name : old('name', 'nanashi') }}" required>
         </div>
         <div>
             <label for="message">内容</label>
-            <textarea  id="message" name="message" required></textarea>
+            <textarea id="message" name="message" required></textarea>
         </div>
         <button type="submit">送信</button>
     </form>

@@ -23,7 +23,6 @@
         @endif
     </div>
     <h1>スレッド一覧</h1>
-    <h2>スレッド</h2>
     @if ($threads->isEmpty())
         <h2>スレッドがありません</h2>
     @else
