@@ -10,6 +10,17 @@ h1, h2 {
     text-align: center;
 }
 
+h2 {
+    margin: 20px 0;
+    font-size: 1.5em; /* Use relative units */
+    font-weight: bold;
+}
+
+.post span {
+    font-size: 0.875em; /* Use relative units */
+    color: rgb(0, 67, 126);
+}
+
 form {
     max-width: 600px;
     margin: 20px auto;
@@ -18,6 +29,8 @@ form {
     border: 1px solid #ddd;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column; /* Use flexbox */
 }
 
 form div {
@@ -35,10 +48,10 @@ input[type="text"] {
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    box-sizing: border-box; /* Ensure padding is included in width */
 }
 
 button {
-    display: block;
     width: 100%;
     padding: 10px;
     background-color: #007BFF;
@@ -46,14 +59,14 @@ button {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 1em; /* Use relative units */
 }
 
 button:hover {
     background-color: #0056b3;
 }
 
-.thread_list {
+.thread_list, .post, .thread, .thread-details {
     max-width: 600px;
     margin: 10px auto;
     padding: 10px;
@@ -63,55 +76,37 @@ button:hover {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.thread_list p{
-    font-size: 13px;
-    color: rgb(103, 110, 116);
+.thread_list p, .thread p, .thread-details p, .post p {
+    font-size: 0.875em; /* Use relative units */
+    color: rgb(51, 51, 51);
 }
 
 a {
     text-decoration: none;
     color: #007BFF;
+    display: block;
+    margin: 20px 0;
 }
 
 a:hover {
     text-decoration: underline;
 }
 
-.post {
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 10px;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-/*@media (max-width: 48em) {
-
-    form, div {
-        max-width: 90%;
- (m        margin: 1em auto;
-x) {
-          padding: 1.5em;
-         }
-   }
-
-on {    b          padding: 0.5em;
-{
-    }}
-
-        font-size: 14px;
-        padding: 8px;
-    }
-}
-
 @media (max-width: 480px) {
     h1, h2 {
-        font-size: 1.5em;
+        font-size: 1.25em; /* Adjust font size for smaller screens */
     }
 
     button {
-        font-size: 12px;
-        padding: 6px;
+        font-size: 0.875em; /* Adjust button font size */
+        padding: 8px; /* Adjust button padding */
+    }
+
+    form {
+        padding: 15px; /* Adjust form padding */
+    }
+
+    .thread_list, .post, .thread, .thread-details {
+        padding: 15px; /* Adjust padding for other elements */
     }
 }

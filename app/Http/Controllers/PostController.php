@@ -18,11 +18,13 @@ class PostController extends Controller
     
     public function store(Request $request)
     {
+        // バリデーション
         $request->validate([
             'message' => 'required',
         ]);
 
         Post::create([
+            'name' => $request->name,
             'user_id' => $this->generateUserId(),
             'message' => $request->message,
             'posted_date' => now(),
@@ -32,6 +34,7 @@ class PostController extends Controller
         return redirect()->route('threads.show', ['thread' => $request->thread_id]);
     }
 
+    // 日替わりユーザーIDを生成
     private function generateUserId() {
         // IPアドレスを取得
         $ip = request()->ip();
@@ -43,7 +46,7 @@ class PostController extends Controller
         $hash = md5($ip . $date);
         
         // ハッシュの最初の5文字を取得
-        $id = substr($hash, 0, 5);
+        $id = substr($hash, 0, 10);
         
         return $id;
     }

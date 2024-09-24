@@ -2,7 +2,8 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="{{ asset('css/style_show.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style_index.css') }}">
+    <script src="{{ asset('js/thread.js') }}" defer></script>
     <title>{{ $thread->title }}</title>
 </head>
 <body>
@@ -19,16 +20,19 @@
     @else
         @foreach ($posts as $post)
             <div class="post">
-                <strong>{{ $post->name }} ({{ $post->user_id }})</strong>
+                <span id="name">{{ $post->name }} {{ $post->posted_date }} ID:{{ $post->user_id }}</span>
                 <p>{{ $post->message }}</p>
-                <p>投稿日時: {{ $post->posted_date }}</p>
             </div>
         @endforeach
     @endif
 
-    <form action="{{ route('posts.store') }}" method="POST">
+    <form action="{{ route('posts.store') }}" method="POST" onsubmit="return errorForm()">
         @csrf
         <input type="hidden" name="thread_id" value="{{ $thread->id }}">
+        <div>
+            <label for="name">名前</label>
+            <input type="text" id="name" name="name" value="nanashi">
+        </div>
         <div>
             <label for="message">内容</label>
             <input type="text" id="message" name="message" required>

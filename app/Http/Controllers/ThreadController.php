@@ -11,6 +11,7 @@ class ThreadController extends Controller
     public function index()
     {
         $threads = Thread::with('posts')->get();
+        $threads = Thread::withCount('posts')->get();
         $dates = $threads->pluck('created_date')->toArray();
         return view('threads.index', compact('threads', 'dates'));
     }
@@ -42,6 +43,7 @@ class ThreadController extends Controller
     // 1000を超える投稿があるスレを削除
     public function deleteOldThreads()
     {
+        // 1000を超える投稿があるスレを取得
         $threads = Thread::withCount('posts')->having('posts_count', '>', 1000)->get();
         foreach ($threads as $thread) {
             $thread->delete();
