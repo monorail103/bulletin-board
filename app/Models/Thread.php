@@ -11,11 +11,13 @@ class Thread extends Model
 
     public function thread()
     {
+        // スレに書き込みを追加
         return $this->belongsTo(Thread::class);
     }
 
     public function posts()
     {
+        // 書き込みに番号をつける
         return $this->hasMany(Post::class);
     }
 

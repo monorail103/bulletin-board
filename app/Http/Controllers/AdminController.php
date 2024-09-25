@@ -148,6 +148,7 @@ class AdminController extends Controller
         return bin2hex(random_bytes(16)); 
     }
 
+    // Google Authenticator用のシークレットキーを生成する
     private function generateSecretKey($length = 16)
     {
         return Base32::encode(random_bytes($length));

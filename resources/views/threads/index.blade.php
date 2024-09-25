@@ -20,6 +20,7 @@
         @else
             <a href="{{ route('login') }}">ログイン</a>
             <a href="{{ route('register') }}">登録</a>
+            <a href="#">プロフィール</a>
         @endif
     </div>
     <h1>スレッド一覧</h1>
@@ -44,6 +45,7 @@
             <input type="text" id="name" name="name" value="nanashi">
             <label for="title">内容</label>
             <input type="text" id="message" name="message" required>
+
         </div>
         <button type="submit">作成</button>
     </form>

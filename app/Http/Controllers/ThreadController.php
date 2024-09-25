@@ -34,10 +34,6 @@ class ThreadController extends Controller
         $thread->save();
 
         $name = $request->input('name', "nanashi");
-
-        if (!$response->json()['success']) {
-            return back()->withErrors(['captcha' => 'CAPTCHA verification failed']);
-        }
     
         $lastPost = Post::where('ip_address', $request->ip())->orderBy('created_at', 'desc')->first();
         if ($lastPost && $lastPost->created_at->diffInSeconds(now()) < 60) {
