@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{{ asset('css/style_index.css') }}">
     <script src="{{ asset('js/thread.js') }}" defer></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <title>{{ $thread->title }}</title>
 </head>
 <body>

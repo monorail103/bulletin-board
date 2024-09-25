@@ -21,6 +21,7 @@ class AdminController extends Controller
         $request->session()->put('admin_password', $temporaryPassword);
 
         // 管理者のメールアドレスにパスワードを送信
+        // ハードコーディングしているが、実際は.envファイルなどで設定する
         Mail::to('dabanbutaya@gmail.com')->send(new AdminPasswordMail($temporaryPassword));
 
         // メール送信成功メッセージをセッションに保存
