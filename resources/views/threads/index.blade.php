@@ -17,10 +17,10 @@
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf
             </form>
+
         @else
             <a href="{{ route('login') }}">ログイン</a>
             <a href="{{ route('register') }}">登録</a>
-            <a href="#">プロフィール</a>
         @endif
     </div>
     <h1>スレッド一覧</h1>

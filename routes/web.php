@@ -5,6 +5,7 @@ use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ThreadController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserController;
 use App\Models\Post;
 use App\Models\Thread;
 use App\Models\Setting;
@@ -13,15 +14,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// スレッド関連のルート
 Route::get('/threads', [ThreadController::class, 'index'])->name('threads.index');
 Route::get('/threads/{thread}', [ThreadController::class, 'show'])->name('threads.show');
 Route::post('/threads', [ThreadController::class, 'store'])->name('threads.store');
 Route::put('/threads/{thread}', [ThreadController::class, 'update'])->name('threads.update');
-Route::get('/threads/{thread}', [ThreadController::class, 'show'])->name('threads.show');
 Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
+
+// ログインルート
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// マイページルート
+Route::get('/mypage', [UserController::class, 'index'])->name('mypage');
+
 
 // 管理者設定ルート
 Route::get('admin/settings', [AdminController::class, 'showSettings'])->name('admin.settings');

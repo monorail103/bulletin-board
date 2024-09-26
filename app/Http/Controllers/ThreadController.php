@@ -17,7 +17,6 @@ class ThreadController extends Controller
         $dates = $threads->pluck('created_date')->toArray();
         return view('threads.index', compact('threads', 'dates'));
     }
-
     // スレ立て
     public function store(Request $request)
     {   
@@ -34,11 +33,6 @@ class ThreadController extends Controller
         $thread->save();
 
         $name = $request->input('name', "nanashi");
-    
-        $lastPost = Post::where('ip_address', $request->ip())->orderBy('created_at', 'desc')->first();
-        if ($lastPost && $lastPost->created_at->diffInSeconds(now()) < 60) {
-            return back()->withErrors(['message' => '連続投稿は1分間隔でお願いします']);
-        }
 
         Post::create([
             'name' => $name,
