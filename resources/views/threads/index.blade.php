@@ -10,14 +10,15 @@
     <div class="header">
         @if(Auth::check())
             <p>ようこそ、{{ Auth::user()->name }}さん</p>
+            <a href="{{ route('user.mypage') }}">マイページ</a>
             <a href="{{ route('logout') }}"
                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 ログアウト
             </a>
+            
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf
             </form>
-
         @else
             <a href="{{ route('login') }}">ログイン</a>
             <a href="{{ route('register') }}">登録</a>

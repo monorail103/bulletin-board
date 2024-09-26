@@ -27,7 +27,9 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // マイページルート
-Route::get('/mypage', [UserController::class, 'index'])->name('mypage');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/mypage', [UserController::class, 'index'])->name('user.mypage');
+});
 
 
 // 管理者設定ルート
