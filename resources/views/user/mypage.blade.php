@@ -9,7 +9,18 @@
                 <div class="card-header">{{ __('My Page') }}</div>
 
                 <div class="card-body">
-                    {{ __('Welcome to your personal page, ') . Auth::user()->name . '!' }}
+                    {{ __('こんにちは、 ') . Auth::user()->name . 'さん' }}
+                    <br>
+                    @php
+                        use App\Models\UserPostsCount;
+                        use Carbon\Carbon;
+
+                        $today = Carbon::today()->toDateString();
+                        $postCount = UserPostsCount::where('user_id', Auth::id())
+                            ->where('date', $today)
+                            ->first();
+                    @endphp
+                    {{ __('今日の投稿数: ') . ($postCount ? $postCount->post_count : 0) }}
                 </div>
             </div>
         </div>

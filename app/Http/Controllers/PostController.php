@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use App\Models\Post;
-
+use App\Models\UserPostsCount;
+use Carbon\Carbon;
 
 class PostController extends Controller
 {
@@ -42,6 +43,14 @@ class PostController extends Controller
                 'posted_date' => now(),
                 'thread_id' => $request->thread_id,
             ]);
+
+            // 書き込み数の更新
+            $today = Carbon::today()->toDateString();
+            $userPostsCount = UserPostsCount::firstOrCreate(
+                ['user_id' => Auth::id(), 'date' => $today],
+                ['post_count' => 0]
+            );
+            $userPostsCount->increment('post_count');
         } catch (\Exception $e) {
             // エラーを処理する（例：ログに記録する、エラーメッセージを返すなど）
             return redirect()->back()->withErrors(['error' => '投稿の作成に失敗しました。']);
