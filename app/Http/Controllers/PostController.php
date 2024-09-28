@@ -17,7 +17,7 @@ class PostController extends Controller
         return view('posts.index', compact('posts'));
     }
 
-    
+
     public function store(Request $request)
     {
         // バリデーション
@@ -51,6 +51,10 @@ class PostController extends Controller
                 ['post_count' => 0]
             );
             $userPostsCount->increment('post_count');
+
+            // ランクの更新
+            $user = Auth::user();
+            $user->calculateRank();
         } catch (\Exception $e) {
             // エラーを処理する（例：ログに記録する、エラーメッセージを返すなど）
             return redirect()->back()->withErrors(['error' => '投稿の作成に失敗しました。']);
@@ -70,13 +74,13 @@ class PostController extends Controller
         }
         // IPアドレスを取得
         $ip = request()->ip();
-        
+
         // IPアドレスと日付を組み合わせてハッシュ化
         $hash = md5($ip . $date);
-        
+
         // ハッシュの最初の5文字を取得
         $id = substr($hash, 0, 10);
-        
+
         return $id;
     }
 

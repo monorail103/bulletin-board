@@ -44,4 +44,10 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function calculateTotalPosts()
+    {
+        return $this->hasMany(UserPostsCount::class)->sum('post_count');
+    }
+
 }

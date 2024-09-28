@@ -209,8 +209,10 @@ a:hover {
 }
 
 .profile p {
-    font-size: 16px; /* フォントサイズ */
-    margin-bottom: 5px; /* 下の余白 */
+    font-size: 19px; /* フォントサイズ */
+    margin-bottom: 3px; /* 下の余白 */
+    font-weight: bold;
+    font-family: sans-serif;
 }
 
 .profile .post-count {

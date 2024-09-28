@@ -12,8 +12,7 @@
         <a href="{{ route('threads.index') }}">スレッドに戻る</a>
     </div>
     <div class="profile">
-        {{ __('こんにちは、 ') . Auth::user()->name . 'さん' }}
-        <br>
+        <p>{{ __('こんにちは、 ') . Auth::user()->name . 'さん' }}</p>
         @php
             use App\Models\UserPostsCount;
             use Carbon\Carbon;
@@ -22,8 +21,24 @@
             $postCount = UserPostsCount::where('user_id', Auth::id())
                 ->where('date', $today)
                 ->first();
+
+            $postTotal = Auth::user()->calculateTotalPosts();
+            $rank = "新米";
+            if ($postTotal >= 300) {
+                $rank = "ベテラン";
+            }
+            else if ($postTotal >= 1000) {
+                $rank = "中堅";
+            }
+            else if($postTotal >= 5000) {
+                $rank = "達人";
+            }
+            else if($postTotal >= 10000) {
+                $rank = "マスター";
+            }
         @endphp
-        {{ __('今日の投稿数: ') . ($postCount ? $postCount->post_count : 0) }}
+        <p>{{ __('今日の投稿数: ') . ($postCount ? $postCount->post_count : 0) }}</p>
+        <p>{{ __('ランク: ') . $rank }}</p>
     </div>
     <div class="row justify-content-center mt-4">
         <div class="col-md-8">
