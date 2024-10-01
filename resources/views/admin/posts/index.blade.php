@@ -12,6 +12,8 @@
             <th>Date</th>
             <th>User Name</th>
             <th>Message</th>
+            <th>IP Address</th>
+            <th>UA</th>
         </tr>
         @foreach ($posts as $post)
         <tr>
@@ -20,6 +22,8 @@
             <td>{{ $post->posted_date }}</td>
             <td>{{ $post->name }}</td>
             <td>{{ $post->message }}</td>
+            <td>{{ $post->ip }}</td>
+            <td>{{ $post->useragent }}</td>
             <td>
                 <form action="{{ route('admin.posts.delete', $post->id) }}" method="POST">
                     @csrf
