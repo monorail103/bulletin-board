@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Thread extends Model
 {
-    protected $fillable = ['title', 'created_date'];
+    protected $fillable = ['title', 'created_date', 'useragent', 'ip', 'user_id'];
 
     public function thread()
     {

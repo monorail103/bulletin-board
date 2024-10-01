@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\UserPostsCount;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class AdminPostController extends Controller
 {
     public function index()
     {
-        $posts = UserPostsCount::all();
+        $posts = Post::all();
         return view('admin.posts.index', compact('posts'));
     }
 
     public function delete($id)
     {
-        $post = UserPostsCount::find($id);
+        $post = Post::find($id);
         if ($post) {
-            $post->post_count = '削除';
+            $post->message = '削除';
             $post->save();
         }
         return redirect()->route('admin.posts.index');

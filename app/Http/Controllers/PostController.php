@@ -27,6 +27,10 @@ class PostController extends Controller
             'thread_id' => 'required|exists:threads,id',
         ]);
 
+        // UAとIPアドレスを取得
+        $userAgent = $request->header('User-Agent');
+        $userIp = $request->ip();
+
         // 名前が空であればデフォルト値を設定
         $name = $request->input('name', 'nanashi');
         if (empty($name)) {
@@ -42,6 +46,8 @@ class PostController extends Controller
                 'message' => $request->message,
                 'posted_date' => now(),
                 'thread_id' => $request->thread_id,
+                'ip' => $userIp,
+                'useragent' => $userAgent,
             ]);
 
             // 書き込み数の更新

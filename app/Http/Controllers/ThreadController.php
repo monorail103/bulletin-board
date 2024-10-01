@@ -19,13 +19,16 @@ class ThreadController extends Controller
     }
     // スレ立て
     public function store(Request $request)
-    {   
+    {
         // バリデーション
         $request->validate([
             'title' => 'required|string|max:255',
             'message' => 'required|string',
             'name' => 'nullable|string|max:255',
         ]);
+
+        $useragent = $request->header('User-Agent');
+        $ip = $request->ip();
 
         $thread = new Thread();
         $thread->title = $request->input('title');
@@ -40,8 +43,10 @@ class ThreadController extends Controller
             'message' => $request->message,
             'posted_date' => now(),
             'thread_id' => $thread->id,
-        ]);       
-        
+            'ip' => $ip,
+            'useragent' => $useragent,
+        ]);
+
         // 立てたスレのページにリダイレクト
         return redirect()->route('threads.show', ['thread' => $thread->id]);
     }
@@ -84,13 +89,13 @@ class ThreadController extends Controller
         }
         // IPアドレスを取得
         $ip = request()->ip();
-        
+
         // IPアドレスと日付を組み合わせてハッシュ化
         $hash = md5($ip . $date);
-        
+
         // ハッシュの最初の5文字を取得
         $id = substr($hash, 0, 10);
-        
+
         return $id;
     }
 }

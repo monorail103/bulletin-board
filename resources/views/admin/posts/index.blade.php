@@ -10,15 +10,16 @@
             <th>ID</th>
             <th>User ID</th>
             <th>Date</th>
-            <th>Post Count</th>
-            <th>Action</th>
+            <th>User Name</th>
+            <th>Message</th>
         </tr>
         @foreach ($posts as $post)
         <tr>
             <td>{{ $post->id }}</td>
             <td>{{ $post->user_id }}</td>
-            <td>{{ $post->date }}</td>
-            <td>{{ $post->post_count }}</td>
+            <td>{{ $post->posted_date }}</td>
+            <td>{{ $post->name }}</td>
+            <td>{{ $post->message }}</td>
             <td>
                 <form action="{{ route('admin.posts.delete', $post->id) }}" method="POST">
                     @csrf
