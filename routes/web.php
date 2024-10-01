@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ThreadController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminPostController;
 use App\Models\Post;
 use App\Models\Thread;
 use App\Models\Setting;
@@ -43,3 +44,5 @@ Route::post('/admin/otp/reset', [AdminController::class, 'resetOtp'])->name('adm
 // 管理者ログインルート
 Route::get('/admin/login', [AdminController::class, 'showLoginForm'])->name('admin.showLoginForm');
 Route::post('/admin/login', [AdminController::class, 'login'])->name('admin.login');
+Route::get('/admin/posts', [AdminPostController::class, 'index'])->name('admin.posts.index');
+Route::post('/admin/posts/{id}/delete', [AdminPostController::class, 'delete'])->name('admin.posts.delete');
