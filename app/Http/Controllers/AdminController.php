@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use PragmaRX\Google2FA\Google2FA;
 use Base32\Base32;
 use App\Models\Setting;
 use App\Mail\AdminPasswordMail;
@@ -145,7 +144,7 @@ class AdminController extends Controller
     // 暫定パスワードを生成する
     private function generatePassword()
     {
-        return bin2hex(random_bytes(16)); 
+        return bin2hex(random_bytes(16));
     }
 
     // Google Authenticator用のシークレットキーを生成する
