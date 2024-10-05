@@ -36,10 +36,6 @@ Route::middleware(['auth'])->group(function () {
 // 管理者設定ルート
 Route::get('admin/settings', [AdminController::class, 'showSettings'])->name('admin.settings');
 Route::post('admin/settings', [AdminController::class, 'updateSettings'])->name('admin.updateSettings');
-Route::post('admin/reset-otp', [AdminController::class, 'resetOtp'])->name('admin.resetOtp');
-Route::get('/admin/otp', [AdminController::class, 'showOtpSetupForm'])->name('admin.otp');
-Route::post('/admin/otp', [AdminController::class, 'verifyOtp'])->name('admin.verifyOtp');
-Route::post('/admin/otp/reset', [AdminController::class, 'resetOtp'])->name('admin.resetOtp');
 
 // 管理者ログインルート
 Route::get('/admin/login', [AdminController::class, 'showLoginForm'])->name('admin.showLoginForm');

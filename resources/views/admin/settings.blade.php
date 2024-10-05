@@ -21,11 +21,6 @@
         <button type="submit">更新</button>
     </form>
 
-    <form action="{{ route('admin.resetOtp') }}" method="POST">
-        @csrf
-        <button type="submit">OTPを再設定</button>
-    </form>
-
     <form action="{{ url('admin.updateSettings') }}" method="POST">
         @csrf
         <div>
@@ -34,6 +29,6 @@
         </div>
         <button type="submit">更新</button>
     </form>
-    
+
 </body>
 </html>
